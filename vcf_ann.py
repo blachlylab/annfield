@@ -26,6 +26,8 @@ output: dictionary representing annotations
     # the order of fields is written in the VCF header.
     eff = eff_string.split('|')
 
+    result = dict()
+
     # TODO: read field order from header. FOr now, define statically
     field_list = [  "allele",
                     "annotation",
@@ -49,3 +51,9 @@ output: dictionary representing annotations
         fields[j] = i
 
 
+    for i,field in enumerate(eff):
+	result[ field ] = eff[i]
+
+    # Done, return object
+    print result
+    return result

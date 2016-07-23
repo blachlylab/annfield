@@ -15,6 +15,9 @@ class TestAnnDecode(unittest.TestCase):
 
     RES_multiple = {}
 
+    def test_get_ann_empty(self):
+        self.assertEqual(get_annotations(""), [{}])
+
     def test_decode_basic(self):
         self.assertEqual(decode(self.ANN1), self.RES1)
     
@@ -29,19 +32,19 @@ class TestAnnDecode(unittest.TestCase):
 
         
 
-
-def decode(ann_string):
+def get_annotations(ann_string):
     """
-    Decodes VCF ANN field standard 1.0
+    Retreives one or more annotations from VCF ANN field standard 1.0
     http://snpeff.sourceforge.net/VCFannotationformat_v1.0.pdf
 
     input: annotation string (either with or without ANN= prefix)
-    output: dictionary representing annotations
+    output: LIST of dictionaries representing annotations
         absent elements in the ANN field will not have
         a corresponding key in the dict
     """
 
-    if not ann_string: return dict()
+    results = list()
+    if not ann_string: return results
 
     # if prefixed with ANN=, trim this
     if ann_string[0:4] == "ANN=": ann_string = ann_string[4:]
@@ -49,9 +52,23 @@ def decode(ann_string):
     # specs page 2:
     # Multiple effects / consequences are separated by comma.
     ann_list = ann_string.split(',')
+    for eff_string in ann_list:
+        results.append( decode(eff_string) )
 
-    # TODO: set up loop. for now examine first only
-    eff_string = ann_list[0]
+    return results
+
+
+def decode(ann_string):
+    """
+    Decodes a single VCF ANN annotation fieldset
+
+    called by: get_annotations
+    input: string (previously split on ',')
+    output: dictionary representing annotations
+        absent elements in the ANN field will not have
+        a corresponding key in the dict
+    """
+
 
     # specs page 1:
     # Data fields are encoded separated by pipe sign "|";

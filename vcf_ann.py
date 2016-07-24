@@ -46,6 +46,23 @@ class TestAnnDecode(unittest.TestCase):
         self.assertEqual(res, [self.RES1])
 
         
+# TODO: read field order from header. For now, define statically
+field_list = [  "allele",
+                "annotation",
+                "putative_impact",
+                "gene_name",
+                "gene_id",
+                "feature_type",
+                "feature_id",
+                "transcript_biotype",
+                "rank_total",
+                "hgvs.c",
+                "hgvs.p",
+                "cdna_position",
+                "cds_position",
+                "protein_position",
+                "distance_to_feature",
+                "errors_warnings_info" ]
 
 def decode(ann_string):
     """
@@ -78,23 +95,6 @@ def decode(ann_string):
         result = dict()
 
         # TODO: read field order from header. For now, define statically
-        field_list = [  "allele",
-                        "annotation",
-                        "putative_impact",
-                        "gene_name",
-                        "gene_id",
-                        "feature_type",
-                        "feature_id",
-                        "transcript_biotype",
-                        "rank_total",
-                        "hgvs.c",
-                        "hgvs.p",
-                        "cdna_position",
-                        "cds_position",
-                        "protein_position",
-                        "distance_to_feature",
-                        "errors_warnings_info" ]
-
         fields = dict()
         for i,j in enumerate(field_list):
             fields[j] = i

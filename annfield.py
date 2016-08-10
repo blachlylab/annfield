@@ -9,11 +9,11 @@ class TestAnnDecode(unittest.TestCase):
     ANN_weq = "ANN=" + ANN1
 
     # Results
-    RES1 = {'distance_to_feature': '-100', 'gene_name': 'BTK', 'feature_type': 'transcript', 'protein_position': '456', 'errors_warnings_info': 'W1', 'feature_id': 'featid', 'rank_total': '7', 'gene_id': 'ENSG...', 'hgvs.p': 'p.L456R', 'transcript_biotype': 'Coding', 'cds_position': '234', 'cdna_position': '123', 'annotation': 'stop_gained', 'putative_impact': 'HIGH', 'allele': 'C', 'hgvs.c': 'c.123T>C'}
-    RES2 = {'putative_impact': 'LOW', 'errors_warnings_info': 'WARNING_REF_DOES_NOT_MATCH_GENOME', 'cdna_position': '123/1000', 'hgvs.p': 'p.L456R', 'distance_to_feature': '-100', 'rank_total': '7/10', 'protein_position': '456/500', 'feature_id': 'featid', 'cds_position': '234/900', 'annotation': 'histone_binding_site', 'allele': 'T', 'transcript_biotype': 'Coding', 'gene_id': 'ENSG...', 'feature_type': 'transcript', 'hgvs.c': 'c.123T>C', 'gene_name': 'BTK'}
-    RES3 = {'feature_id': 'featid', 'protein_position': '456', 'gene_id': '', 'rank_total': '7/10', 'transcript_biotype': 'Coding', 'hgvs.c': 'c.123T>C', 'distance_to_feature': '-100', 'feature_type': 'transcript', 'hgvs.p': 'p.L456R', 'errors_warnings_info': 'W1', 'cds_position': '234', 'annotation': 'intron_variant&nc_transcript_variant', 'putative_impact': 'MEDIUM', 'cdna_position': '123', 'gene_name': '', 'allele': 'A'}
-    RES3A = {'feature_id': 'featid', 'protein_position': '456', 'gene_id': '', 'rank_total': '7/10', 'transcript_biotype': 'Coding', 'hgvs.c': 'c.123T>C', 'distance_to_feature': '-100', 'feature_type': 'transcript', 'hgvs.p': 'p.L456R', 'errors_warnings_info': 'W1', 'cds_position': '234', 'annotation': 'intron_variant', 'putative_impact': 'MEDIUM', 'cdna_position': '123', 'gene_name': '', 'allele': 'A'}
-    RES3B = {'feature_id': 'featid', 'protein_position': '456', 'gene_id': '', 'rank_total': '7/10', 'transcript_biotype': 'Coding', 'hgvs.c': 'c.123T>C', 'distance_to_feature': '-100', 'feature_type': 'transcript', 'hgvs.p': 'p.L456R', 'errors_warnings_info': 'W1', 'cds_position': '234', 'annotation': 'nc_transcript_variant', 'putative_impact': 'MEDIUM', 'cdna_position': '123', 'gene_name': '', 'allele': 'A'}
+    RES1 = {'distance_to_feature': '-100', 'gene_name': 'BTK', 'feature_type': 'transcript', 'protein_position': '456', 'errors_warnings_info': 'W1', 'feature_id': 'featid', 'rank_total': '7', 'gene_id': 'ENSG...', 'hgvs_p': 'p.L456R', 'transcript_biotype': 'Coding', 'cds_position': '234', 'cdna_position': '123', 'effect': 'stop_gained', 'impact': 'HIGH', 'allele': 'C', 'hgvs_c': 'c.123T>C'}
+    RES2 = {'impact': 'LOW', 'errors_warnings_info': 'WARNING_REF_DOES_NOT_MATCH_GENOME', 'cdna_position': '123/1000', 'hgvs_p': 'p.L456R', 'distance_to_feature': '-100', 'rank_total': '7/10', 'protein_position': '456/500', 'feature_id': 'featid', 'cds_position': '234/900', 'effect': 'histone_binding_site', 'allele': 'T', 'transcript_biotype': 'Coding', 'gene_id': 'ENSG...', 'feature_type': 'transcript', 'hgvs_c': 'c.123T>C', 'gene_name': 'BTK'}
+    RES3 = {'feature_id': 'featid', 'protein_position': '456', 'gene_id': '', 'rank_total': '7/10', 'transcript_biotype': 'Coding', 'hgvs_c': 'c.123T>C', 'distance_to_feature': '-100', 'feature_type': 'transcript', 'hgvs_p': 'p.L456R', 'errors_warnings_info': 'W1', 'cds_position': '234', 'effect': 'intron_variant&nc_transcript_variant', 'impact': 'MEDIUM', 'cdna_position': '123', 'gene_name': '', 'allele': 'A'}
+    RES3A = {'feature_id': 'featid', 'protein_position': '456', 'gene_id': '', 'rank_total': '7/10', 'transcript_biotype': 'Coding', 'hgvs_c': 'c.123T>C', 'distance_to_feature': '-100', 'feature_type': 'transcript', 'hgvs_p': 'p.L456R', 'errors_warnings_info': 'W1', 'cds_position': '234', 'effect': 'intron_variant', 'impact': 'MEDIUM', 'cdna_position': '123', 'gene_name': '', 'allele': 'A'}
+    RES3B = {'feature_id': 'featid', 'protein_position': '456', 'gene_id': '', 'rank_total': '7/10', 'transcript_biotype': 'Coding', 'hgvs_c': 'c.123T>C', 'distance_to_feature': '-100', 'feature_type': 'transcript', 'hgvs_p': 'p.L456R', 'errors_warnings_info': 'W1', 'cds_position': '234', 'effect': 'nc_transcript_variant', 'impact': 'MEDIUM', 'cdna_position': '123', 'gene_name': '', 'allele': 'A'}
 
     def test_get_ann_empty(self):
         "Test decoding of empty string"
@@ -47,20 +47,22 @@ class TestAnnDecode(unittest.TestCase):
 
         
 # TODO: read field order from header. For now, define statically
+# snake_case is 20% easier to read than camelCase
+# http://ieeexplore.ieee.org/xpl/articleDetails.jsp?reload=true&tp=&arnumber=5521745
 field_list = [  "allele",
-                "annotation",
-                "putative_impact",
+                "effect",           # aka annotation
+                "impact",           # aka putative_impact
                 "gene_name",
                 "gene_id",
                 "feature_type",
                 "feature_id",
                 "transcript_biotype",
                 "rank_total",
-                "hgvs.c",
-                "hgvs.p",
-                "cdna_position",
-                "cds_position",
-                "protein_position",
+                "hgvs_c",           # previously hgvs.c
+                "hgvs_p",           # previously hgvs.p
+                "cdna_position",    # should cdna_len be a sep field?
+                "cds_position",     # likewise
+                "protein_position", # likewise
                 "distance_to_feature",
                 "errors_warnings_info" ]
 
@@ -105,12 +107,12 @@ def decode(ann_string):
 
         # Look for '&' in the annotation field
         # if present, split into two separate objects
-        if '&' in result['annotation']:
+        if '&' in result['effect']:
             # Count number of '&' conjunctions
-            annotations = result['annotation'].split('&')
+            annotations = result['effect'].split('&')
             for i in range(len(annotations)):
                 copy = dict(result)
-                copy['annotation'] = annotations[i]
+                copy['effect'] = annotations[i]
                 yield copy
         # No compound effect annotation ('&')
         # So just yield result

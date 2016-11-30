@@ -90,7 +90,7 @@ def decode(ann_string):
     for eff_string in ann_list:
 
         # specs page 1:
-        # Data fields are encoded separated by pipe sign "|";
+        # Data fields are encoded separated by pipe sign "|"
         # the order of fields is written in the VCF header.
         eff = eff_string.split('|')
 
